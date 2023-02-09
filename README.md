@@ -47,7 +47,7 @@ Randy Cummings
 Clone the project  
 
 ~~~bash  
-  git clone https://github.com/speedspeedo/bright-life.git
+git clone https://github.com/speedspeedo/bright-life.git
 ~~~
 
 Install dependencies  
