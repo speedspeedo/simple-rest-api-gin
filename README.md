@@ -57,7 +57,9 @@ git clone https://github.com/speedspeedo/bright-life.git
 Install dependencies  
 
 ~~~bash  
-npm install
+$ npm install
+$ go mod init github.com/YOUR_USERNAME/semaphore-demo-go-gin
+$ go get -u github.com/gin-gonic/gin
 ~~~
 
 Start the server  
