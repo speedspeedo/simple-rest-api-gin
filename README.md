@@ -31,12 +31,16 @@ Randy Cummings
 
 **DB:** MySQL, MongoDB, HarperDB
 
+**Server:** Gin Framework(GoLang), AWS
+
+**DB:** MySQL, MongoDB, HarperDB
+
 # Functions  
 1. Management users(Auth)
     1. Register
     2. Sign In / Sign Up
 2. REST API
-    1. HTTPS connection
+    1. HTTPS connection 
 3. Analysis DB
 
     1. Analyze the sport events and get the result information from the database.
