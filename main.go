@@ -1,6 +1,11 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 var router *gin.Engine
 
@@ -9,14 +14,44 @@ func main() {
 	// Set the router
 	router = gin.Default()
 
-	// Process the templates at the start so that they don't have to be loaded
-	// from the disk again. This makes serving HTML pages very fast.
-	router.LoadHTMLGlob("templates/*")
+	router.GET("/users", getUsers)
 
-	// Handle Index
-	router.GET("/")
-	// Handle GET requests at /article/view/some_article_id
-	router.GET("/article/view/:article_id")
+	//router.GET("/article/view/:article_id")
+
+	router.POST("/users", addUser)
+
+	// var users = []User{
+	// 	{Id: 1, Name: "Randy Cummings", Password: "123456", Email: "speedodeveloper1004@gmail.com"},
+	// 	{Id: 2, Name: "Andy Cummings", Password: "123456", Email: "speedodeveloper1004@gmail.com"},
+	// 	{Id: 3, Name: "Pandy Cummings", Password: "123456", Email: "speedodeveloper1004@gmail.com"},
+	// }
+
+	// b, _ := json.Marshal(users)
+
+	// fmt.Println(string(b))
 
 	router.Run()
+}
+
+func getUsers(ctx *gin.Context) {
+	users := GetUsers()
+	if users == nil || len(users) == 0 {
+		ctx.AbortWithStatus(http.StatusNotFound)
+	} else {
+		ctx.IndentedJSON(http.StatusOK, users)
+	}
+}
+
+// curl -X POST http://localhost:8080/users -H 'content-type:application/json' -d "{\"id\":2,\"name\":\"asd\",\"email\":\"asd\",\"password\":\"sd\"}"
+
+func addUser(ctx *gin.Context) {
+	var user User
+
+	if err := ctx.BindJSON(&user); err != nil {
+		fmt.Println(err)
+		ctx.AbortWithStatus(http.StatusBadRequest)
+	} else {
+		AddUser(user)
+		ctx.IndentedJSON(http.StatusCreated, user)
+	}
 }
