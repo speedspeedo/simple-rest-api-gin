@@ -49,3 +49,23 @@ func GetUsers() []User {
 
 	return users
 }
+
+func AddUser(user User) {
+	db, err := sql.Open("mysql", dbuser+":"+dbpwd+"@tcp(127.0.0.1:3306)/"+dbname)
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	// defer the close till after this function has finished executing
+	defer db.Close()
+	fmt.Println(user)
+	insert, err := db.Query("insert into user (id, name, email, password) values (?, ?, ?, ?)", user.Id, user.Name, user.Email, user.Password)
+
+	// if there is an error inserting, handle it
+	if err != nil {
+		panic(err.Error())
+	}
+
+	defer insert.Close()
+}

@@ -18,6 +18,18 @@ func main() {
 
 	//router.GET("/article/view/:article_id")
 
+	router.POST("/users", addUser)
+
+	// var users = []User{
+	// 	{Id: 1, Name: "Randy Cummings", Password: "123456", Email: "speedodeveloper1004@gmail.com"},
+	// 	{Id: 2, Name: "Andy Cummings", Password: "123456", Email: "speedodeveloper1004@gmail.com"},
+	// 	{Id: 3, Name: "Pandy Cummings", Password: "123456", Email: "speedodeveloper1004@gmail.com"},
+	// }
+
+	// b, _ := json.Marshal(users)
+
+	// fmt.Println(string(b))
+
 	router.Run()
 }
 
@@ -26,7 +38,20 @@ func getUsers(ctx *gin.Context) {
 	if users == nil || len(users) == 0 {
 		ctx.AbortWithStatus(http.StatusNotFound)
 	} else {
-		fmt.Println(users)
 		ctx.IndentedJSON(http.StatusOK, users)
+	}
+}
+
+// curl -X POST http://localhost:8080/users -H 'content-type:application/json' -d "{\"id\":2,\"name\":\"asd\",\"email\":\"asd\",\"password\":\"sd\"}"
+
+func addUser(ctx *gin.Context) {
+	var user User
+
+	if err := ctx.BindJSON(&user); err != nil {
+		fmt.Println(err)
+		ctx.AbortWithStatus(http.StatusBadRequest)
+	} else {
+		AddUser(user)
+		ctx.IndentedJSON(http.StatusCreated, user)
 	}
 }

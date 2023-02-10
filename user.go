@@ -3,11 +3,11 @@ package main
 type User struct {
 	Id int `json:"id"`
 
-	Name string `json:"Name"`
+	Name string `json:"name"`
 
-	Password string `json:"pwd"`
+	Password string `json:"password"`
 
-	Email string `json:"Email"`
+	Email string `json:"email"`
 }
 
 /**
