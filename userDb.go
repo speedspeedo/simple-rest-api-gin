@@ -10,6 +10,7 @@ import (
 const dbuser = "root"
 const dbpwd = "ROBrob528%@*"
 const dbname = "life_care"
+var id = 0
 
 func GetUsers() []User {
 
@@ -37,6 +38,8 @@ func GetUsers() []User {
 		var iterator User
 
 		err = results.Scan(&iterator.Id, &iterator.Name, &iterator.Password, &iterator.Email)
+
+		id ++;
 
 		if err != nil {
 			panic(err.Error())
