@@ -18,7 +18,7 @@ func main() {
 
 	//router.GET("/article/view/:article_id")
 
-	router.POST("/users", addUser)
+	router.POST("/register", addUser)
 
 	// var users = []User{
 	// 	{Id: 1, Name: "Randy Cummings", Password: "123456", Email: "speedodeveloper1004@gmail.com"},
